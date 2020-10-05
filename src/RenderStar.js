@@ -80,7 +80,7 @@ function runTimingStar(stop:any,duration : number ,clock: Animated.Clock, value:
   
     let clock = [new Clock(),new Clock(),new Clock(),new Clock(),new Clock(),new Clock(),new Clock(),new Clock(),new Clock(),new Clock(),new Clock()];
     //for(let i = 0; i < 5 ; i++) clock.push();
-    let firstPos = [{'x' : 10 , 'y' : -500},{'x' : 40 , 'y' : -450},{'x' : 70 , 'y' : -400},{'x' : 330 , 'y' : -350},{'x' : 150 , 'y' : -330},
+    let firstPos = [{'x' : 5 , 'y' : -490},{'x' : 40 , 'y' : -450},{'x' : 70 , 'y' : -400},{'x' : 330 , 'y' : -350},{'x' : 150 , 'y' : -330},
     {'x' : 260 , 'y' : -280},{'x' : 240 , 'y' : -250},{'x' : 200 , 'y' : -350},{'x' : 180 , 'y' : -300},{'x' : 130 , 'y' : -220},{'x' : 360 , 'y' : -475}];
     
     //let clock2 = new Clock();

@@ -5,81 +5,22 @@ import { Text, View, Button } from 'react-native'
 import Animated, { Easing } from "react-native-reanimated";
 const { and, greaterThan, call, lessThan, not, block, debug, Clock, clockRunning, startClock, stopClock, cond, eq, add, set, Value, event, interpolate, timing } = Animated;
 
-function runTimingScore(stop: any, duration: number, clock: Animated.Clock) {
-
-    //const heightS = new Value(height)
-    //console.log(temp["_value"])
-    const state = {
-        finished: new Value(0),
-        position: new Value(0),
-        // amount of time running in duration
-        time: new Value(0),
-        // frame time for 'timing' function
-        frameTime: new Value(0),
-    };
-
-    const config = {
-        duration: duration,
-        toValue: new Value(0),
-        easing: Easing.inOut(Easing.linear),
-    };
-    //debug('a',state.position)
-    return block([
-
-        cond(
-            eq(stop, 1),
-            [
-                set(state.finished, 1),
-            ],
-            cond(
-                clockRunning(clock),
-                [
-                    // if the clock is already running we update the toValue, in case a new dest has been passed in
-                    set(config.toValue, 500),//destinatiom = 500
-
-                    //debug('to Value', state.position),
-                    //debug('time: ', state.time),
-                    //debug('frame time: ', state.frameTime),
-                ],
-                [
-                    // if the clock isn't running we reset all the animation params and start the clock
-                    set(state.finished, 0),
-                    set(state.time, 0),
-                    set(state.position, 0),
-                    set(state.frameTime, 0),
-                    set(config.toValue, 500),//destinatiom = 500
-                    startClock(clock),
-                ],
-            ),
-
-
-        ),
-
-        // we run the step here that is going to update position
-        timing(clock, state, config),
-        //set(state.finished, 0),
-        // if the animation is over we stop the clock
-        cond(state.finished, stopClock(clock)),
-        // we made the block return the updated position
-        state.position,
-    ]);
-}
-
 export default class Score extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             score: 0
         }
+        //this.stopApp = cond(eq(this.props.stop,1),call([this.props.stop],this.onDrop))
     }
-    stopX = new Value(0)
-    stopY = new Value(1)
+
     componentDidMount() {
 
         this.time = setInterval(() => {
             this.setState({
                 score: this.state.score + 1
             })
+            console.log('running')
         }, 100)
 
     }
@@ -93,19 +34,21 @@ export default class Score extends React.Component {
         inputRange: [0, 1],
         outputRange: [0, 1],
     });
-    // componentDidUpdate() {
 
-    //     //if(this.props.value === this.stopX.value) console.log('change')
-    //     console.log('after : ' + this.stopX['_value'])
-    // }
-    // functionClearInterval(){
-    //     clearInterval(this.time);
-    // }
+    
+    onDrop=([x]) =>{
+        clearInterval(this.time);
+        console.log('stop = 1')
+    }
 
     render() {
         return (
             <>
-
+                <Animated.Code>
+                    {
+                        cond(eq(this.props.stop,1),call([this.props.stop],this.onDrop))
+                    }
+                </Animated.Code>
                 <Animated.View style={[styles.score, { opacity: this.opacity }]} >
 
                     <Text style={{ color: 'black', fontSize: 20 }}> SCORE{'\n'} {this.state.score} </Text>

@@ -9,7 +9,7 @@ import RenderStar from './src/RenderStar'
 import RenderUFO from './src/RenderUFO'
 const { width, height } = Dimensions.get("window");
 
-const { and, greaterThan, lessThan, not, block, debug, Clock, clockRunning, startClock, stopClock, cond, eq, add, set, Value, event, interpolate, Extrapolate, timing } = Animated;
+const { and, greaterThan, lessThan, not, block, call,debug, Clock, clockRunning, startClock, stopClock, cond, eq, add, set, Value, event, interpolate, Extrapolate, timing } = Animated;
 
 
 export default class App extends React.Component {
@@ -32,16 +32,23 @@ export default class App extends React.Component {
     },
   ]);
   addX = add(this.offsetX, this.dragX);
-  stopApp = new Value(0)
-  
+
+
+  onDrop([x]){
+    console.log('stop')
+  }
+
+
+
   transX = cond(
     eq(this.gestureState, State.ACTIVE),
-    this.addX,
+    [
+      this.addX
+    ],
     
     block([
       set(this.offsetX, this.addX),
       set(this.dragX, 0),
-
       //set(this.stop,1),
       this.offsetX
     ])
@@ -52,7 +59,7 @@ export default class App extends React.Component {
    
     setInterval(() => {
       this.setState({
-        dur: this.state.dur / 2,
+        dur: this.state.dur -1000,
         level: this.state.level + 1
       })
       
@@ -66,7 +73,7 @@ export default class App extends React.Component {
         <View style={styles.container}>
 
           {
-            RenderUFO(this.stop,this.stopApp, this.state.dur, this.transX, height - 150)
+            RenderUFO(this.stop, this.state.dur, this.transX, height - 150)
           }
 
           {

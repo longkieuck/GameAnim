@@ -7,7 +7,7 @@ const { and, greaterThan, lessThan, not, block, call, Clock, clockRunning, start
 
 
 
-function runTimingUFO(stop: any,stopApp:any, duration: number, clock: Animated.Clock, value: number, dest: number, currX: number, stopX: any, stopY: any) {
+function runTimingUFO(stop: any, duration: number, clock: Animated.Clock, value: number, dest: number, currX: number, stopX: any, stopY: any) {
   //console.log(stop)
 
   //const heightS = new Value(height)
@@ -38,9 +38,9 @@ function runTimingUFO(stop: any,stopApp:any, duration: number, clock: Animated.C
           and(greaterThan(state.position, stopY), greaterThan(stopY + 80, state.position), lessThan(stopX, currX + 20), lessThan(currX - 40, stopX)),// x curr = 150
           //set(state.finished, 0),
           [
-
             set(stop,1),
-
+            set(state.position,-100),
+            set(state.finished,1)
           ],
           cond(
             greaterThan(state.position, height),
@@ -83,13 +83,13 @@ function runTimingUFO(stop: any,stopApp:any, duration: number, clock: Animated.C
   ]);
 }
 
-const RenderUFO = (stop: any,stopApp:any, duration: number, stopX: any, stopY: any) => {
+const RenderUFO = (stop: any, duration: number, stopX: any, stopY: any) => {
 
   let clock = [new Clock(), new Clock(), new Clock(), new Clock(), new Clock(), new Clock()];
   let currX = [0, width / 6, 2 * width / 6, 3 * width / 6, 4 * width / 6, 5 * width / 6]
-  let transY = [runTimingUFO(stop,stopApp, duration, clock[0], -750, height + 50, currX[0], stopX, stopY), runTimingUFO(stop,stopApp, duration, clock[1], -600, height + 200, currX[1], stopX, stopY)
-    , runTimingUFO(stop, duration,stopApp, clock[2], -450, height + 350, currX[2], stopX, stopY), runTimingUFO(stop,stopApp, duration, clock[3], -400, height + 400, currX[3], stopX, stopY)
-    , runTimingUFO(stop, stopApp,duration, clock[4], -150, height + 650, currX[4], stopX, stopY), runTimingUFO(stop,stopApp, duration, clock[5], -300, height + 500, currX[5], stopX, stopY)]
+  let transY = [runTimingUFO(stop, duration, clock[0], -750, height + 50, currX[0], stopX, stopY), runTimingUFO(stop, duration, clock[1], -600, height + 200, currX[1], stopX, stopY)
+    , runTimingUFO(stop, duration, clock[2], -450, height + 350, currX[2], stopX, stopY), runTimingUFO(stop, duration, clock[3], -400, height + 400, currX[3], stopX, stopY)
+    , runTimingUFO(stop,duration, clock[4], -150, height + 650, currX[4], stopX, stopY), runTimingUFO(stop, duration, clock[5], -300, height + 500, currX[5], stopX, stopY)]
   return (
     <>
       <Animated.View style={{ transform: [{ translateX: currX[0], translateY: transY[0] }] }
