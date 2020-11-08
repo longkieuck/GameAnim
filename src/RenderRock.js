@@ -3,11 +3,11 @@ import Animated, { Easing } from "react-native-reanimated";
 import { Dimensions, View, Image } from 'react-native'
 const { width, height } = Dimensions.get("window");
 import styles from './css'
-const { and, greaterThan, lessThan, not, block, call, Clock, clockRunning, startClock, stopClock, cond, debug, add, set, Value, event, interpolate, Extrapolate, timing } = Animated;
+const { and, greaterThan, lessThan, not, block, Clock, clockRunning, startClock, stopClock, cond, set, Value, Extrapolate, timing } = Animated;
 
 
 
-function runTimingUFO(stop: any, duration: number, clock: Animated.Clock, value: number, dest: number, currX: number, stopX: any, stopY: any) {
+function runTimingUFO(stop, duration, clock, value, dest, currX, stopX, stopY) {
   //console.log(stop)
 
   //const heightS = new Value(height)
@@ -83,7 +83,7 @@ function runTimingUFO(stop: any, duration: number, clock: Animated.Clock, value:
   ]);
 }
 
-const RenderUFO = (stop: any, duration: number, stopX: any, stopY: any) => {
+const RenderUFO = (stop, duration, stopX, stopY) => {
 
   let clock = [new Clock(), new Clock(), new Clock(), new Clock(), new Clock(), new Clock()];
   let currX = [0, width / 6, 2 * width / 6, 3 * width / 6, 4 * width / 6, 5 * width / 6]

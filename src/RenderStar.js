@@ -3,9 +3,9 @@ import Animated, { Easing } from "react-native-reanimated";
 import {Dimensions,View,Image} from 'react-native'
 const { width, height } = Dimensions.get("window");
 import styles from './css'
-const { and,greaterThan,lessThan,not,block,debug,Clock,clockRunning,startClock,stopClock,cond, eq, add, set, Value, event, interpolate, Extrapolate, timing } = Animated;
+const { greaterThan,block,Clock,clockRunning,startClock,stopClock,cond, eq, set, Value, timing } = Animated;
 
-function runTimingStar(stop:any,duration : number ,clock: Animated.Clock, value: number, dest: number) {
+function runTimingStar(stop,duration  ,clock, value, dest) {
 
     //const heightS = new Value(height)
     //console.log(temp["_value"])
@@ -76,7 +76,7 @@ function runTimingStar(stop:any,duration : number ,clock: Animated.Clock, value:
   }
   
   
-  const RenderStar = (stop:any,duration:number) => {
+  const RenderStar = (stop,duration) => {
   
     let clock = [new Clock(),new Clock(),new Clock(),new Clock(),new Clock(),new Clock(),new Clock(),new Clock(),new Clock(),new Clock(),new Clock()];
     //for(let i = 0; i < 5 ; i++) clock.push();

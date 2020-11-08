@@ -6,16 +6,16 @@ import { PanGestureHandler, State } from "react-native-gesture-handler";
 import styles from './src/css'
 import Score from './src/Score'
 import RenderStar from './src/RenderStar'
-import RenderUFO from './src/RenderUFO'
+import RenderRock from './src/RenderRock'
 const { width, height } = Dimensions.get("window");
 
 const { and, greaterThan, lessThan, not, block, call,debug, Clock, clockRunning, startClock, stopClock, cond, eq, add, set, Value, event, interpolate, Extrapolate, timing } = Animated;
 
 
 export default class App extends React.Component {
-  constructor(props: any) {
+  constructor(props) {
     super(props);
-    this.state = { dur: 5000, level: 1};
+    this.state = { dur: 5000, level: 1,start:false};
   }
   //Control Rocket
   stop = new Value(0);
@@ -59,7 +59,7 @@ export default class App extends React.Component {
    
     setInterval(() => {
       this.setState({
-        dur: this.state.dur -1000,
+        dur: this.state.dur *2/3,
         level: this.state.level + 1
       })
       
@@ -69,11 +69,23 @@ export default class App extends React.Component {
   render() {
     return (
 
-      <View style={{ flex: 1, backgroundColor: 'black' }}>
+      <>
+      {!this.state.start&&<View style={[styles.gameOver, { opacity: 1 }]} >
+                        <Text style={{ color: 'red', fontSize: 40 }}> Are You Ready! </Text>
+                        <Button
+                            title="START"
+                            color="#f194ff"
+                            onPress={() => this.setState({start:true})}
+                        />
+                    </View>}
+
+      {
+        this.state.start&&
+        <View style={{ flex: 1, backgroundColor: 'black' }}>
         <View style={styles.container}>
 
           {
-            RenderUFO(this.stop, this.state.dur, this.transX, height - 150)
+            RenderRock(this.stop, this.state.dur, this.transX, height - 150)
           }
 
           {
@@ -108,7 +120,8 @@ export default class App extends React.Component {
         <Text style={styles.level}>LEVEL: {this.state.level}</Text>
         <Score stop={this.stop} />
       </View>
-
+      }
+      </>
     );
   }
 }
