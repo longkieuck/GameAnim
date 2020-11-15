@@ -30,12 +30,6 @@ export default class Score extends React.Component {
         outputRange: [1, 0],
     });
 
-    // opacityGameOver = interpolate(this.props.stop, {
-    //     inputRange: [0, 1],
-    //     outputRange: [0, 1],
-    // });
-
-
     onDrop = ([x]) => {
         clearInterval(this.time);
         this.setState({

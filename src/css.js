@@ -11,9 +11,9 @@ const styles = StyleSheet.create({
       
     },
     rocket:{
-      
       height:80,
-      width:80
+      width:80,
+ 
     },
     star1:{
       height:25,
